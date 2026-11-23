@@ -1,4 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://laughingmeme.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://laughingmeme.org/" rel="alternate" type="text/html" /><updated>2026-11-23T14:02:40+00:00</updated><id>https://laughingmeme.org/feed.xml</id><title type="html">Kellan Elliott-McCrea: Blog</title><subtitle>A personal blog of Kellan Elliott-McCrea. I don&apos;t really know what a &quot;laughing meme&quot; is. It sounded cool in 1999.</subtitle><author><name>Kellan Elliott-McCrea</name></author><entry><title type="html">Sick Day Project: Outlanders 2 “Wiki”</title><link href="https://laughingmeme.org/2026/10/26/sick-day-project-outlanders-2-wiki.html" rel="alternate" type="text/html" title="Sick Day Project: Outlanders 2 “Wiki”" /><published>2026-10-26T00:13:18+00:00</published><updated>2026-10-26T00:13:18+00:00</updated><id>https://laughingmeme.org/2026/10/26/sick-day-project-outlanders-2-wiki</id><content type="html" xml:base="https://laughingmeme.org/2026/10/26/sick-day-project-outlanders-2-wiki.html"><![CDATA[<p>I was supposed to ride the <a href="https://nyccentury.org/">NYC Century today</a>, but I ended up coming down with a nasty cold and I’m spending the day on the couch.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://laughingmeme.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://laughingmeme.org/" rel="alternate" type="text/html" /><updated>2026-11-23T14:04:53+00:00</updated><id>https://laughingmeme.org/feed.xml</id><title type="html">Kellan Elliott-McCrea: Blog</title><subtitle>A personal blog of Kellan Elliott-McCrea. I don&apos;t really know what a &quot;laughing meme&quot; is. It sounded cool in 1999.</subtitle><author><name>Kellan Elliott-McCrea</name></author><entry><title type="html">Slow AI</title><link href="https://laughingmeme.org/2026/11/23/slow-ai.html" rel="alternate" type="text/html" title="Slow AI" /><published>2026-11-23T14:03:00+00:00</published><updated>2026-11-23T14:03:00+00:00</updated><id>https://laughingmeme.org/2026/11/23/slow-ai</id><content type="html" xml:base="https://laughingmeme.org/2026/11/23/slow-ai.html"><![CDATA[<p>Bigger, faster, better, stronger, one shot. What if we did something different?</p>
+
+<p>I started experimenting this weekend with what’s possible when you’re not chasing the frontier edge, and instead asking what’s possible given time. In part spurred by Harper’s <a href="https://harper.blog/2026/09/22/break-away/">recent meditations</a> on what it looks like to design for unlimited tokens. Call it Slow AI.</p>
+
+<p>My preferred form factor these days, as I’ve <a href="https://laughingmeme.org/2026/03/24/coding-and-blogging-on-vacation.html">written</a> <a href="https://laughingmeme.org/2026/05/22/the-importance-of-tools-and-the-hedonic-treadmill-of-feels-like-magic.html">about</a>, is something I can drive from my phone with partial, continuously fractured attention. I’m not looking for a cockpit for agents running on my device, I’m looking for a coding tamagotchi. And Claude Code has done a pretty solid job of this. But it comes with Claude’s models and Claude’s token math, and I wanted to play with my own.</p>
+
+<p>Initial kit:</p>
+
+<ul>
+  <li><a href="https://www.lunaroute.com/">LunaRoute</a>: open weight models, pay for concurrency not tokens. Once you’ve paid for a lane, patience is free. (We were discussing a similar approach at work this week, where an engineer referred to it as <a href="https://en.wikipedia.org/wiki/FreeCell">FreeCell</a> rate limiting. I expect this will become a lot more common for agentic workflows.)</li>
+  <li>Fly.io <a href="https://fly.io/sprites">Sprites</a>: good price, plus blazing fast spin up, and spin down to zero when idle. I’m not sitting there watching these things, I don’t need to keep a machine hot until I get around to checking. Plus built in connections for handling access to resources.</li>
+  <li><a href="https://opencode.ai">OpenCode</a>: web and mobile UIs, pluggable providers. (Also looking at this at work where providers are prescribed)</li>
+</ul>
+
+<p>LunaRoute was straightforward to sign up for, though it could have done a better job of explaining itself to an agent, who then explained things to me in small words.</p>
+
+<p>First bump in the road: Claude told me to install OpenCode v1, but LunaRoute assumed v2. The upgrade was painless once I figured out what was going on.</p>
+
+<p>Given I already had a Fly.io account, Sprites were a delight to get started with.</p>
+
+<p>OpenCode worked fine. Its server and its web UI fought over the Sprite’s limited ports, but it worked. It worked with LunaRoute, where I’m primarily using GLM 5.3. It handled waiting gracefully enough when concurrency limits were hit. And it took a stab at building itself a keep awake solution using Sprites’ task APIs, so the boxes don’t sleep on long running sessions. (Scale to zero being convenient for me, but alien to agents.) I tried tuning it with a building mode to increase its autonomy and stability, and to target the background models on LunaRoute. Mixed results.</p>
+
+<p>Surprisingly, even with access to OpenCode’s full repo, the agents weren’t great at understanding and manipulating its internals, and I never really got it to the point where it gracefully survived how transient Sprites are.</p>
+
+<p>And finally, OpenCode didn’t have a mobile app. It had a wait list for an official one, and a plethora of third party open source options, none of which were great. Plus the web UI was janky. It felt like it was built to be the web UI for a terminal, even though it had a native API to speak.</p>
+
+<p>So I pivoted to Jesse’s <a href="https://github.com/prime-radiant-inc/evener">evener</a>, which was built for long running tasks. It comes with all the belt and suspenders you expect from <a href="https://github.com/obra/superpowers">Superpowers</a> (especially once I installed Superpowers), something GLM benefits from. It has a web UI that is still in need of some love, but feels web native.</p>
+
+<p>The agents were shockingly good at manipulating evener’s internals, even though it’s an incredibly obscure tool. The documentation is apparently agent ergonomic, and it felt like asking an LLM to do TypeScript, or some other task heavily represented in the training set. We were able to bang out a keep alive system for long running tasks, a scheduled tasks tool that uses GitHub Actions as our outside clock, and a set of skills for manipulating these tools and Sprites.</p>
+
+<p>And with the exact same model behind it, it was just nicer to work with. I was less fatigued after talking to this thing. Which from Jesse isn’t a surprise.</p>
+
+<p>Happy with LunaRoute. Pretty happy with Sprites, though their GitHub gateway, one of the reasons I picked them, can’t do private repos, and I ended up working around it with extra orgs and PATs. OpenCode was kind of meh. Evener was fun, but I didn’t get a chance to play with the mobile client, as Jesse was mid gutting it yesterday.</p>]]></content><author><name>Kellan Elliott-McCrea</name></author><summary type="html"><![CDATA[Bigger, faster, better, stronger, one shot. What if we did something different?]]></summary></entry><entry><title type="html">Sick Day Project: Outlanders 2 “Wiki”</title><link href="https://laughingmeme.org/2026/10/26/sick-day-project-outlanders-2-wiki.html" rel="alternate" type="text/html" title="Sick Day Project: Outlanders 2 “Wiki”" /><published>2026-10-26T00:13:18+00:00</published><updated>2026-10-26T00:13:18+00:00</updated><id>https://laughingmeme.org/2026/10/26/sick-day-project-outlanders-2-wiki</id><content type="html" xml:base="https://laughingmeme.org/2026/10/26/sick-day-project-outlanders-2-wiki.html"><![CDATA[<p>I was supposed to ride the <a href="https://nyccentury.org/">NYC Century today</a>, but I ended up coming down with a nasty cold and I’m spending the day on the couch.</p>
 
 <p>I enjoy the <a href="https://www.pomelogames.com/outlanders2/">Outlanders 2 game</a>, an easy going village sim. But somehow it’s never quite acquired one of those fandom wikis with the various details, and sometimes I’m curious about how many days it takes carrots to mature and what their yield is. (usually when playing in Tournament mode).</p>
 
@@ -260,23 +292,4 @@
 
 <p>Ankit is right, the human work moves upstream (as it always has).</p>
 
-<p>You can look at the code. But honestly, it’s the human driving the agent’s job to worry about the code, ensure it works, and that they meet the standards of the org. We can do something more valuable with our teammates time when we ask them to review our work.</p>]]></content><author><name>Kellan Elliott-McCrea</name></author><summary type="html"><![CDATA[On AI and code review.]]></summary></entry><entry><title type="html">Ed’s Software, in a Time of Fear</title><link href="https://laughingmeme.org/2026/03/01/software-in-a-time-of-fear.html" rel="alternate" type="text/html" title="Ed’s Software, in a Time of Fear" /><published>2026-03-01T13:58:18+00:00</published><updated>2026-03-01T13:58:18+00:00</updated><id>https://laughingmeme.org/2026/03/01/software-in-a-time-of-fear</id><content type="html" xml:base="https://laughingmeme.org/2026/03/01/software-in-a-time-of-fear.html"><![CDATA[<p>I enjoyed this essay from my friend Ed Lyons, which I think speaks well to <em>my</em> particular state of mind as someone who has been in this industry for 30+ years, a parent, a people leader, a builder.</p>
-
-<p><a href="https://mysteriousrook.medium.com/software-in-a-time-of-fear-4e5a08ac7c63">Software, in a Time of Fear</a></p>
-
-<blockquote>
-  <p>Up front, here are the lessons:</p>
-
-  <ol>
-    <li>Stop listening to people who are afraid</li>
-    <li>Seek first-hand testimony, not opinions</li>
-    <li>Go with someone much more enthusiastic than you</li>
-    <li>Do not look down</li>
-    <li>You must get different equipment</li>
-    <li>Put the summit out of your mind</li>
-  </ol>
-
-  <p>Yet I hope you stay for the hike up.</p>
-</blockquote>
-
-<p>Personally I’m working on 1, 2, 3, and 5. I’m struggling with 4 and 6.</p>]]></content><author><name>Kellan Elliott-McCrea</name></author><summary type="html"><![CDATA[I enjoyed this essay from my friend Ed Lyons, which I think speaks well to my particular state of mind as someone who has been in this industry for 30+ years, a parent, a people leader, a builder.]]></summary></entry></feed>
+<p>You can look at the code. But honestly, it’s the human driving the agent’s job to worry about the code, ensure it works, and that they meet the standards of the org. We can do something more valuable with our teammates time when we ask them to review our work.</p>]]></content><author><name>Kellan Elliott-McCrea</name></author><summary type="html"><![CDATA[On AI and code review.]]></summary></entry></feed>

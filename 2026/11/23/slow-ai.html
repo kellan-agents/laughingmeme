@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Slow AI | Kellan Elliott-McCrea: Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Slow AI" />
+<meta name="author" content="Kellan Elliott-McCrea" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Bigger, faster, better, stronger, one shot. What if we did something different?" />
+<meta name="twitter:description" property="og:description" content="Bigger, faster, better, stronger, one shot. What if we did something different?" />
+<link rel="canonical" href="https://laughingmeme.org/2026/11/23/slow-ai.html" />
+<meta property="og:url" content="https://laughingmeme.org/2026/11/23/slow-ai.html" />
+<meta property="og:site_name" content="Kellan Elliott-McCrea: Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-11-23T14:03:00+00:00" />
+<meta property="article:modified_time" content="2026-11-23T14:03:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Slow AI" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Kellan Elliott-McCrea"},"dateModified":"2026-11-23T14:03:00+00:00","datePublished":"2026-11-23T14:03:00+00:00","description":"Bigger, faster, better, stronger, one shot. What if we did something different?","headline":"Slow AI","mainEntityOfPage":{"@type":"WebPage","@id":"https://laughingmeme.org/2026/11/23/slow-ai.html"},"url":"https://laughingmeme.org/2026/11/23/slow-ai.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://laughingmeme.org/feed.xml" title="Kellan Elliott-McCrea: Blog" /><style>
+    .post-date {
+      float: right;
+    }
+  </style>
+  <script defer data-domain="laughingmeme.org" src="https://plausible.io/js/script.js"></script>
+
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Kellan Elliott-McCrea: Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="https://kellanem.com/notes/">Leadership notes</a><a class="page-link" href="/about/">About</a><a class="page-link" href="/search/">Search</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting" data-pagefind-body data-pagefind-filter="type:post">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Slow AI</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2026-11-23T14:03:00+00:00" itemprop="datePublished">Nov 23, 2026
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Bigger, faster, better, stronger, one shot. What if we did something different?</p>
+
+<p>I started experimenting this weekend with what’s possible when you’re not chasing the frontier edge, and instead asking what’s possible given time. In part spurred by Harper’s <a href="https://harper.blog/2026/09/22/break-away/">recent meditations</a> on what it looks like to design for unlimited tokens. Call it Slow AI.</p>
+
+<p>My preferred form factor these days, as I’ve <a href="https://laughingmeme.org/2026/03/24/coding-and-blogging-on-vacation.html">written</a> <a href="https://laughingmeme.org/2026/05/22/the-importance-of-tools-and-the-hedonic-treadmill-of-feels-like-magic.html">about</a>, is something I can drive from my phone with partial, continuously fractured attention. I’m not looking for a cockpit for agents running on my device, I’m looking for a coding tamagotchi. And Claude Code has done a pretty solid job of this. But it comes with Claude’s models and Claude’s token math, and I wanted to play with my own.</p>
+
+<p>Initial kit:</p>
+
+<ul>
+  <li><a href="https://www.lunaroute.com/">LunaRoute</a>: open weight models, pay for concurrency not tokens. Once you’ve paid for a lane, patience is free. (We were discussing a similar approach at work this week, where an engineer referred to it as <a href="https://en.wikipedia.org/wiki/FreeCell">FreeCell</a> rate limiting. I expect this will become a lot more common for agentic workflows.)</li>
+  <li>Fly.io <a href="https://fly.io/sprites">Sprites</a>: good price, plus blazing fast spin up, and spin down to zero when idle. I’m not sitting there watching these things, I don’t need to keep a machine hot until I get around to checking. Plus built in connections for handling access to resources.</li>
+  <li><a href="https://opencode.ai">OpenCode</a>: web and mobile UIs, pluggable providers. (Also looking at this at work where providers are prescribed)</li>
+</ul>
+
+<p>LunaRoute was straightforward to sign up for, though it could have done a better job of explaining itself to an agent, who then explained things to me in small words.</p>
+
+<p>First bump in the road: Claude told me to install OpenCode v1, but LunaRoute assumed v2. The upgrade was painless once I figured out what was going on.</p>
+
+<p>Given I already had a Fly.io account, Sprites were a delight to get started with.</p>
+
+<p>OpenCode worked fine. Its server and its web UI fought over the Sprite’s limited ports, but it worked. It worked with LunaRoute, where I’m primarily using GLM 5.3. It handled waiting gracefully enough when concurrency limits were hit. And it took a stab at building itself a keep awake solution using Sprites’ task APIs, so the boxes don’t sleep on long running sessions. (Scale to zero being convenient for me, but alien to agents.) I tried tuning it with a building mode to increase its autonomy and stability, and to target the background models on LunaRoute. Mixed results.</p>
+
+<p>Surprisingly, even with access to OpenCode’s full repo, the agents weren’t great at understanding and manipulating its internals, and I never really got it to the point where it gracefully survived how transient Sprites are.</p>
+
+<p>And finally, OpenCode didn’t have a mobile app. It had a wait list for an official one, and a plethora of third party open source options, none of which were great. Plus the web UI was janky. It felt like it was built to be the web UI for a terminal, even though it had a native API to speak.</p>
+
+<p>So I pivoted to Jesse’s <a href="https://github.com/prime-radiant-inc/evener">evener</a>, which was built for long running tasks. It comes with all the belt and suspenders you expect from <a href="https://github.com/obra/superpowers">Superpowers</a> (especially once I installed Superpowers), something GLM benefits from. It has a web UI that is still in need of some love, but feels web native.</p>
+
+<p>The agents were shockingly good at manipulating evener’s internals, even though it’s an incredibly obscure tool. The documentation is apparently agent ergonomic, and it felt like asking an LLM to do TypeScript, or some other task heavily represented in the training set. We were able to bang out a keep alive system for long running tasks, a scheduled tasks tool that uses GitHub Actions as our outside clock, and a set of skills for manipulating these tools and Sprites.</p>
+
+<p>And with the exact same model behind it, it was just nicer to work with. I was less fatigued after talking to this thing. Which from Jesse isn’t a surprise.</p>
+
+<p>Happy with LunaRoute. Pretty happy with Sprites, though their GitHub gateway, one of the reasons I picked them, can’t do private repos, and I ended up working around it with extra orgs and PATs. OpenCode was kind of meh. Evener was fun, but I didn’t get a chance to play with the mobile client, as Jesse was mid gutting it yesterday.</p>
+
+  </div>
+
+  <a class="u-url" href="/2026/11/23/slow-ai.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Kellan Elliott-McCrea</li><li><a class="u-email" href="mailto:kellan@gmail.com">kellan@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
+  <li>On Mastodon: <a href="https://fiasco.social/@kellan">@kellan</a></li><li><a href="https://www.twitter.com/kellan"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">kellan</span></a></li><li><a href="https://www.flickr.com/photos/kellan"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#flickr"></use></svg> <span class="username">kellan</span></a></li><li><a href="https://github.com/kellan"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">kellan</span></a></li><li><a href="https://www.linkedin.com/in/kellanem"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">kellanem</span></a></li><li><a href="https://kellanem.com/notes/">Leadership blog</a></li>
+</ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A personal blog of Kellan Elliott-McCrea. I don&#39;t really know what a &quot;laughing meme&quot; is. It sounded cool in 1999.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
