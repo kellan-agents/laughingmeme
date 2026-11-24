@@ -34,6 +34,14 @@ header_nav:
   - title: Leadership notes
     url: https://kellanem.com/notes/
 
+# Bluesky comments: posts with a `bsky_thread` front matter key embed their
+# companion Bluesky post's thread as the comment section.
+#   readonly - render the thread read-only; readers participate over on Bluesky (default)
+#   auth     - also let readers sign in with Bluesky and reply/like on the page,
+#              via the svebcomponents bridge. Read README "Bluesky comments"
+#              before flipping this.
+bsky_comments_mode: readonly
+
 # Build settings
 theme: minima
 plugins:

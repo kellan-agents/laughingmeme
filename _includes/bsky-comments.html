@@ -1,0 +1,43 @@
+{% comment %}
+  Renders the post's Bluesky thread as its comment section.
+
+  A post opts in by carrying its companion Bluesky post URL in front matter:
+
+      bsky_thread: https://bsky.app/profile/<handle>/post/<rkey>
+
+  Two modes, chosen by site.bsky_comments_mode in _config.yml:
+
+    readonly (default) - renders the thread read-only. Readers who want to
+      participate click through to Bluesky itself. No sign-in UI, no bridge:
+      the browser talks only to the public AppView (public.api.bsky.app)
+      and Bluesky's CDN for avatars.
+
+    auth - additionally lets readers sign in with their Bluesky account
+      (atproto OAuth, narrow per-collection scopes) and reply/like right on
+      the page, via the svebcomponents bridge (atproto.svebcomponents.dev,
+      a free community service run by one person - see README "Bluesky
+      comments" for the tradeoffs before enabling).
+{% endcomment %}
+<section class="bsky-comments">
+  <h2>Comments</h2>
+  <p class="bsky-comments-note">
+    The conversation for this post lives on Bluesky &mdash;
+    <a href="{{ include.thread }}" rel="noopener noreferrer" target="_blank">reply to or like the post there</a>.
+    Replies and likes show up below.
+  </p>
+  {%- if site.bsky_comments_mode == "auth" -%}
+  <script type="module" src="{{ '/assets/js/atproto-comments-0.9.0.js' | relative_url }}"></script>
+  <atproto-comments
+    thread="{{ include.thread | escape }}"
+    viewer-name="Bluesky"
+  ></atproto-comments>
+  {%- else -%}
+  <script type="module" src="{{ '/assets/js/atproto-comments-0.9.0.js' | relative_url }}"></script>
+  <atproto-comments
+    thread="{{ include.thread | escape }}"
+    viewer-name="Bluesky"
+    readonly
+    live="off"
+  ></atproto-comments>
+  {%- endif -%}
+</section>
